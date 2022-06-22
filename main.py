@@ -1,7 +1,11 @@
-from bitcoin import BitcoinWallet
+from KeyManagment import KeyManager
+from networks.bitcoin import BitcoinWallet
 
-words = 'race romance science affair sad just seminar lens diary relief glimpse horror'
-wallet = BitcoinWallet.from_mnemonic(words)
-address = wallet.get_address_by_path('m/1/0')
+manager = KeyManager.from_mnemonic(
+    'race romance science affair sad just seminar lens diary relief glimpse horror')
 
-print(address)
+key = manager.get_private_key_from_path("m/1/1", 'hex')
+print(f'Key: {key}')
+
+address = BitcoinWallet.get_address(key, testnet=True)
+print(f'Address: {address}')
